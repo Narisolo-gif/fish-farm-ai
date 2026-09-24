@@ -1,0 +1,15 @@
+LOT006_DATA = {
+    "lot_id": "LOT006",
+    "period_days": 30,
+    "initial_population": 10000,
+    "current_population": 8700,
+    "initial_weight_g": 20,
+    "current_weight_g": 38,
+    "expected_weight_g": 52,
+    "mortality_rate": 13.0,
+    "avg_temperature_c": 31.5,
+    "max_temperature_c": 34.0,
+    "avg_oxygen_mg_l": 3.0,
+    "min_oxygen_mg_l": 1.8,
+    "feed_kg": 420,
+}
