@@ -137,8 +137,10 @@ Chaque tâche est livrée avec ses tests et validée (`pytest` vert) avant la su
       (format `fournisseur:modele`, ex. `google_genai:gemini-2.5-flash`,
       `openai:gpt-6.2-sol`) et `LLM_API_KEY` dans `.env`. Pour un nouveau fournisseur,
       ajouter son connecteur LangChain à `requirements.txt` (ex. `langchain-openai`).
-- [ ] 1.4 Workflow LangGraph en 3 étapes (`prepare_context`, `call_llm`, `validate_response`),
-      avec les consignes métier par type d'alerte.
+- [x] 1.4 Workflow LangGraph en 3 étapes (`prepare_context`, `call_llm`, `validate_response`),
+      avec les consignes métier par type d'alerte (`app/workflows/` : `analyse_alerte.py`,
+      `consignes.py`, `contexte.py`). Contenu métier des consignes à faire valider par
+      l'exploitation.
 - [ ] 1.5 Route `POST /api/v1/ai/analyze` + gestion d'erreurs (lot ou alerte inconnus, LLM
       indisponible → erreur propre, la plateforme reste utilisable).
 
@@ -198,7 +200,7 @@ Agis comme un développeur Python/FastAPI expérimenté, spécialisé dans les s
 
 ```powershell
 docker compose build                                   # si requirements.txt change
-docker compose run --rm ai-service python -m pytest -v # tests (47 passent, 1 ignoré, au 2026-11-25)
+docker compose run --rm ai-service python -m pytest -v # tests (59 passent, 3 appels réels ignorés, au 2026-11-25)
 # Appel RÉEL au modèle de LLM_MODEL (réseau + quota ; données simulées uniquement) :
 docker compose run --rm -e TEST_LLM_REEL=1 ai-service python -m pytest tests/test_client_llm_reel.py -v -s
 ```

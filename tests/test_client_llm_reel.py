@@ -35,3 +35,25 @@ def test_le_modele_repond_au_format_attendu():
 
     print("\n", reponse.model_dump_json(indent=2))
     assert isinstance(reponse, ReponseLLM)
+
+
+@pytest.mark.parametrize(
+    ("lot_id", "code_alerte"),
+    [
+        (6, "MORTALITE_ELEVEE"),  # causes possibles à formuler comme hypothèses
+        (9, "PESEE_EN_RETARD"),  # données manquantes à signaler, pas à deviner
+    ],
+)
+def test_workflow_complet_avec_le_vrai_modele(lot_id, code_alerte):
+    from app.services.source_simulee import SourceSimulee
+    from app.workflows.analyse_alerte import analyser_alerte
+    from app.schemas import AnalyseRequest
+
+    resultat = analyser_alerte(
+        AnalyseRequest(lot_id=lot_id, code_alerte=code_alerte),
+        source=SourceSimulee(),
+        client=creer_client_llm(),
+    )
+
+    print("\n", resultat.model_dump_json(indent=2))
+    assert resultat.lot_id == lot_id
