@@ -87,7 +87,7 @@ Schémas Pydantic : `app/schemas/`. Configuration : `app/core/config.py`.
 
 ## 8. État actuel du code (à rattraper par rapport au manuel)
 
-Réalisé : structure du projet, `/health`, configuration (`pydantic-settings`), tests pytest,
+Réalisé : structure du projet, `/health`, route `POST /api/v1/ai/analyze` (étape 1 terminée), configuration (`pydantic-settings`), tests pytest,
 conteneur Docker.
 
 Provisoire (remplacé par le client Django à l'étape 3) :
@@ -141,7 +141,7 @@ Chaque tâche est livrée avec ses tests et validée (`pytest` vert) avant la su
       avec les consignes métier par type d'alerte (`app/workflows/` : `analyse_alerte.py`,
       `consignes.py`, `contexte.py`). Contenu métier des consignes à faire valider par
       l'exploitation.
-- [ ] 1.5 Route `POST /api/v1/ai/analyze` + gestion d'erreurs (lot ou alerte inconnus, LLM
+- [x] 1.5 Route `POST /api/v1/ai/analyze` + gestion d'erreurs (lot ou alerte inconnus, LLM
       indisponible → erreur propre, la plateforme reste utilisable).
 
 **Étape 2 – Alertes et contexte d'élevage côté Django (avant l'intégration)**
@@ -200,7 +200,7 @@ Agis comme un développeur Python/FastAPI expérimenté, spécialisé dans les s
 
 ```powershell
 docker compose build                                   # si requirements.txt change
-docker compose run --rm ai-service python -m pytest -v # tests (59 passent, 3 appels réels ignorés, au 2026-11-25)
+docker compose run --rm ai-service python -m pytest -v # tests (68 passent, 3 appels réels ignorés, au 2026-11-25)
 # Appel RÉEL au modèle de LLM_MODEL (réseau + quota ; données simulées uniquement) :
 docker compose run --rm -e TEST_LLM_REEL=1 ai-service python -m pytest tests/test_client_llm_reel.py -v -s
 ```
