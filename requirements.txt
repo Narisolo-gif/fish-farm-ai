@@ -7,3 +7,4 @@ langchain
 langgraph
 python-dotenv
 pytest
+langchain-google-genai
